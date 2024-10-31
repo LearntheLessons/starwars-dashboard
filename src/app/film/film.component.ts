@@ -31,31 +31,35 @@ export class FilmDetailComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadFilmDetails(+id);
-      this.store.select(selectSelectedFilm).subscribe(film => {
-        this.selectedFilm = film; // Assign selected film for display
-      });
+      this.subscribeToSelectedFilm();
     }
   }
 
-  loadFilmDetails(id: number) {
+  private subscribeToSelectedFilm(): void {
+    this.store.select(selectSelectedFilm).subscribe(film => {
+      this.selectedFilm = film;
+      this.loading = false;
+    });
+  }
+
+  private loadFilmDetails(id: number): void {
     this.starWarsService.getFilmDetails(id).subscribe({
       next: (data) => {
         this.store.dispatch(loadFilmDetailsSuccess({ film: data }));
-        this.loading = false;
       },
       error: (err) => {
         this.store.dispatch(loadFilmDetailsFailure({ error: err }));
         this.error = err;
-        this.loading = false;
       },
     });
   }
 
-  goBack() {
-    this.router.navigate(['../']); // Navigate back to the previous page
+  goBack(): void {
+    this.router.navigate(['../']);
   }
+
 }
