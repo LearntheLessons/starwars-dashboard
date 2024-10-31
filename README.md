@@ -1,27 +1,36 @@
-# StarwarsDashboard
+# Star Wars Film Explorer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
+## Overview
 
-## Development server
+The Star Wars Film Explorer is an Angular application that fetches and displays a list of Star Wars films using the [SWAPI](https://swapi.dev/api/films) API. The application is structured with lazy-loaded modules, allowing for optimized loading of features and components. It also includes a communication layer between the main application and the lazy-loaded module, dynamically registering additional routes at runtime and passing values through the communication layer.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- **Lazy Loading**: The application uses lazy-loaded modules to enhance performance by loading features only when required.
+- **Communication Layer**: A simple communication layer is established between the main application and lazy-loaded modules using Angular services, allowing for data and event flow.
+- **Dynamic Route Registration**: Additional routes are registered dynamically within the lazy-loaded module when it initializes.
+- **Film Details Navigation**: Users can click on a film to view its details, leveraging the Star Wars API to fetch data.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies Used
 
-## Build
+- Angular 18
+- Angular Material for UI components
+- RxJS for handling asynchronous data streams
+- TypeScript
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Getting Started
 
-## Running unit tests
+### Prerequisites
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Node.js (version >= 14)
+- Angular CLI (version >= 14)
 
-## Running end-to-end tests
+### Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Clone the repository:
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+   ```bash
+   git clone https://github.com/LearntheLessons/starwars-dashboard.git
+   cd starwars-dashboard
+   ng serve
+   ```
