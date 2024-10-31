@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { Film } from '../models/film.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class StarWarsService {
   constructor(private http: HttpClient) {}
 
   // Method to fetch the list of films
-  getFilms(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/films`).pipe(
+  getFilms(): Observable<Film[]> {
+    return this.http.get<{ results: Film[] }>(`${this.apiUrl}/films`).pipe(
       map((response: any) => {
         // Check if results exist
         if (response && response.results && response.results.length > 0) {
@@ -30,8 +31,8 @@ export class StarWarsService {
   }
 
   // Method to fetch film details by ID
-  getFilmDetails(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/films/${id}`).pipe(
+  getFilmDetails(id: number): Observable<Film> {
+    return this.http.get<Film>(`${this.apiUrl}/films/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         // Handle specific errors for film details
         if (error.status === 404) {
