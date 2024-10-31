@@ -32,5 +32,6 @@ The Star Wars Film Explorer is an Angular application that fetches and displays 
    ```bash
    git clone https://github.com/LearntheLessons/starwars-dashboard.git
    cd starwars-dashboard
+   npm i
    ng serve
    ```

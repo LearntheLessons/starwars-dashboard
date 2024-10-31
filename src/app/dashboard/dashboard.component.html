@@ -1,4 +1,8 @@
-<div *ngIf="films.length">
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner> <!-- Loading spinner -->
+</div>
+
+<div *ngIf="!loading && films.length">
 <h1>Star Wars Films</h1>
 <mat-table [dataSource]="films">
   <!-- Columns for displaying film titles and actions to view details -->
@@ -27,4 +31,8 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
+</div>
+
+<div *ngIf="!loading && !films.length">
+  <p>No films available.</p> <!-- Show message if films array is empty -->
 </div>
