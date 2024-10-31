@@ -2,9 +2,9 @@
   <mat-spinner></mat-spinner> <!-- Loading spinner -->
 </div>
 
-<div *ngIf="!loading && films.length">
+<div *ngIf="!loading">
 <h1>Star Wars Films</h1>
-<mat-table [dataSource]="films">
+<mat-table *ngIf="(films$ | async) as films;" [dataSource]="films">
   <!-- Columns for displaying film titles and actions to view details -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
@@ -33,6 +33,4 @@
 </mat-table>
 </div>
 
-<div *ngIf="!loading && !films.length">
-  <p>No films available.</p> <!-- Show message if films array is empty -->
-</div>
+<div *ngIf="(films$ | async)?.length === 0">No films available</div>

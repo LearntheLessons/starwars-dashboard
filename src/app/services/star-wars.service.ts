@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { Film } from '../models/film.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,44 +14,36 @@ export class StarWarsService {
 
   constructor(private http: HttpClient) {}
 
-  // Method to fetch the list of films
-  getFilms(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/films`).pipe(
-      map((response: any) => {
-        // Check if results exist
+  getFilms(): Observable<Film[]> {
+    return this.http.get<{ results: Film[] }>(`${this.apiUrl}/films`).pipe(
+      switchMap((response: any) => {
         if (response && response.results && response.results.length > 0) {
-          return response.results; // Return the films
+          return [response.results];
         } else {
-          // Handle empty film list scenario
           return throwError(() => new Error('No films found'));
         }
       }),
-      catchError(this.handleError) // Handle errors
+      catchError(this.handleError)
     );
   }
 
-  // Method to fetch film details by ID
-  getFilmDetails(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/films/${id}`).pipe(
+  getFilmDetails(id: number): Observable<Film> {
+    return this.http.get<Film>(`${this.apiUrl}/films/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Handle specific errors for film details
         if (error.status === 404) {
           return throwError(() => new Error('Film not found'));
         } else {
-          return this.handleError(error); // General error handling
+          return this.handleError(error);
         }
       })
     );
   }
 
-  // Generic error handling method
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(() => new Error(errorMessage));

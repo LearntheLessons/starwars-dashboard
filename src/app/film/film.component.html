@@ -1,2 +1,17 @@
-<h2>{{ film?.title }}</h2>
-<p>{{ film?.opening_crawl }}</p>
+<div class="container">
+  <mat-spinner *ngIf="loading" class="loading-spinner"></mat-spinner>
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <button mat-button class="back-button" (click)="goBack()">Back</button>
+
+  <div *ngIf="selectedFilm" class="film-details">
+    <h2>{{ selectedFilm.title }}</h2>
+    <p><strong>Episode:</strong> {{ selectedFilm.episode_id }}</p>
+    <p><strong>Director:</strong> {{ selectedFilm.director }}</p>
+    <p><strong>Release Date:</strong> {{ selectedFilm.release_date | date }}</p>
+    <p><strong>Opening Crawl:</strong></p>
+    <pre>{{ selectedFilm.opening_crawl }}</pre>
+  </div>
+</div>

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { provideStore } from '@ngrx/store';
+
+import { filmReducer } from './store/film.reducer';
 
 @Component({
   selector: 'app-root',

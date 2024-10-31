@@ -6,8 +6,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { StarWarsService } from '../services/star-wars.service';
+import { FilmState } from '../store/film.reducer';
+import { selectAllFilms } from '../store/film.selectors';
+import { loadFilmsSuccess, loadFilmsFailure } from '../store/film.action';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,15 +30,18 @@ import { StarWarsService } from '../services/star-wars.service';
 })
 export class DashboardComponent implements OnInit {
 
-  films: any[] = [];
+  films$: Observable<any[]>;
   displayedColumns: string[] = ['title', 'director', 'release_date', 'action'];
   loading = true;
 
   constructor( 
     private router: Router,
+    private store: Store<FilmState>,
     private starWarService: StarWarsService,
     private snackBar: MatSnackBar,
-  ) {}
+  ) {
+    this.films$ = this.store.select(selectAllFilms);
+  }
 
   ngOnInit(): void {
     this.loadFilms();
@@ -43,10 +51,11 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
     this.starWarService.getFilms().subscribe({
       next: (data) => {
-        this.films = data; // Set films on successful response
+        this.store.dispatch(loadFilmsSuccess({ films: data }));
         this.loading = false;
       },
       error: (err) => {
+        this.store.dispatch(loadFilmsFailure({ error: err }));
         this.snackBar.open(err, 'Close', {
           duration: 3000, // Show error message for 3 seconds
         });
