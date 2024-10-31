@@ -37,6 +37,7 @@ export const filmReducer = createReducer(
   })),
   on(loadFilmDetailsFailure, (state, { error }) => ({
     ...state,
+    selectedFilm: null,
     error,
   }))
 );
