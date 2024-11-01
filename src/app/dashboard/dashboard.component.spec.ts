@@ -30,7 +30,7 @@ describe('DashboardComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([]),  // Use withRoutes([]) to avoid deprecation warning
+        RouterModule.forRoot([]),
         DashboardComponent,
         FilmDetailComponent,
         BrowserAnimationsModule,
