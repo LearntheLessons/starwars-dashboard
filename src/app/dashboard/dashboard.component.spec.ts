@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, RouterModule} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard.component';
 import { StarWarsService } from '../services/star-wars.service';
 import { FilmState } from '../store/film.reducer';
-import { loadFilmsSuccess, loadFilmsFailure } from '../store/film.action';
+import { loadFilmsSuccess } from '../store/film.action';
 import { selectAllFilms } from '../store/film.selectors';
 import { Film } from '../models/film.model';
 import { FilmDetailComponent } from '../film/film.component';
@@ -88,19 +88,6 @@ describe('DashboardComponent', () => {
       expect(mockStore.dispatch).toHaveBeenCalledWith(loadFilmsSuccess({ films }));
       expect(component.loading).toBeFalse();
     });
-
-    // it('should display an error message and dispatch loadFilmsFailure on error', () => {
-    //   const errorMessage = 'Failed to load films';
-    //   starWarsServiceSpy.getFilms.and.returnValue(throwError(() => new Error(errorMessage)));
-
-    //   spyOn(mockStore, 'dispatch');
-    //   component.loadFilms();
-
-    //   expect(starWarsServiceSpy.getFilms).toHaveBeenCalled();
-    //   expect(mockStore.dispatch).toHaveBeenCalledWith(loadFilmsFailure({ error: new Error(errorMessage) }));
-    //   expect(snackBarSpy.open).toHaveBeenCalledWith(errorMessage, 'Close', { duration: 3000 });
-    //   expect(component.loading).toBeFalse();
-    // });
   });
 
   describe('#viewFilmDetails', () => {
