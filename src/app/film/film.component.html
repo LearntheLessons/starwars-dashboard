@@ -3,9 +3,6 @@
   <div *ngIf="error" class="alert alert-danger">
     {{ error }}
   </div>
-
-  <button mat-button class="back-button" (click)="goBack()">Back</button>
-
   <div *ngIf="selectedFilm" class="film-details">
     <h2>{{ selectedFilm.title }}</h2>
     <p><strong>Episode:</strong> {{ selectedFilm.episode_id }}</p>
