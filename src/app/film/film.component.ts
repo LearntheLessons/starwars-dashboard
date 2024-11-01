@@ -12,7 +12,7 @@ import { selectSelectedFilm } from '../store/film.selectors';
 @Component({
   selector: 'app-film-detail',
   templateUrl: './film.component.html',
-  styles: [],
+  styleUrls: ['./film.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -57,9 +57,4 @@ export class FilmDetailComponent implements OnInit {
       },
     });
   }
-
-  goBack(): void {
-    this.router.navigate(['../']);
-  }
-
 }
