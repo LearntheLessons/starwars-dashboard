@@ -14,7 +14,7 @@ export const loadFilmsSuccess = createAction(
 
 export const loadFilmsFailure = createAction(
   '[Film] Load Films Failure',
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
 
 export const loadFilmDetailsSuccess = createAction(

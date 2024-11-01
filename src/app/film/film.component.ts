@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 
@@ -8,6 +8,7 @@ import { StarWarsService } from '../services/star-wars.service';
 import { FilmState } from '../store/film.reducer';
 import { loadFilmDetailsSuccess, loadFilmDetailsFailure } from '../store/film.action';
 import { selectSelectedFilm } from '../store/film.selectors';
+import { Film } from '../models/film.model';
 
 @Component({
   selector: 'app-film-detail',
@@ -20,15 +21,14 @@ import { selectSelectedFilm } from '../store/film.selectors';
   ],
 })
 export class FilmDetailComponent implements OnInit {
-  selectedFilm: any;
-  loading: boolean = true;
+  selectedFilm: Film | null = null;
+  loading = true;
   error: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<FilmState>,
     private starWarsService: StarWarsService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +48,10 @@ export class FilmDetailComponent implements OnInit {
 
   private loadFilmDetails(id: number): void {
     this.starWarsService.getFilmDetails(id).subscribe({
-      next: (data) => {
+      next: (data: Film) => {
         this.store.dispatch(loadFilmDetailsSuccess({ film: data }));
       },
-      error: (err) => {
+      error: (err: string) => {
         this.store.dispatch(loadFilmDetailsFailure({ error: err }));
         this.error = err;
       },
