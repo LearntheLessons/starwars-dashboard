@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -24,7 +23,6 @@ import { loadFilmsSuccess, loadFilmsFailure } from '../store/film.action';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule,
     MatProgressSpinnerModule,
   ],
 })
@@ -38,7 +36,6 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private store: Store<FilmState>,
     private starWarService: StarWarsService,
-    private snackBar: MatSnackBar,
   ) {
     this.films$ = this.store.select(selectAllFilms);
   }
@@ -56,16 +53,13 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         this.store.dispatch(loadFilmsFailure({ error: err }));
-        this.snackBar.open(err, 'Close', {
-          duration: 3000, // Show error message for 3 seconds
-        });
         this.loading = false;
       },
     });
   }
 
   viewFilmDetails(url: string) {
-    const filmId = url.split('/').slice(-2)[0]; // Extract film ID from URL
+    const filmId = url.split('/').slice(-2)[0];
     this.router.navigate(['/film', filmId]);
   }
 }
