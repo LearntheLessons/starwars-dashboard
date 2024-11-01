@@ -10,9 +10,9 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterOutlet], // Import AppComponent instead of declaring it
+      imports: [AppComponent, RouterOutlet],
       providers: [
-        provideStore({ film: filmReducer }), // Provide the film reducer for store
+        provideStore({ film: filmReducer }),
       ],
     }).compileComponents();
   });
@@ -20,19 +20,19 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Trigger change detection
+    fixture.detectChanges();
   });
 
   it('should create the app component', () => {
-    expect(component).toBeTruthy(); // Check that the component is created
+    expect(component).toBeTruthy();
   });
 
   it('should have title "starwars-dashboard"', () => {
-    expect(component.title).toEqual('starwars-dashboard'); // Verify the title property
+    expect(component.title).toEqual('starwars-dashboard');
   });
 
   it('should render the router outlet', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('router-outlet')).toBeTruthy(); // Check if router outlet is present
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });

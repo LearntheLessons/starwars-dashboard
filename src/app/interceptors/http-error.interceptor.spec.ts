@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient, HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { provideHttpClient, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 
 import { HttpErrorInterceptor } from './http-error.interceptor';
@@ -11,22 +11,21 @@ describe('HttpErrorInterceptor', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(), // Provides HttpClient
-        provideHttpClientTesting(), // Provides HttpClient testing support
+        provideHttpClient(),
+        provideHttpClientTesting(),
         {
           provide: HTTP_INTERCEPTORS,
-          useClass: HttpErrorInterceptor, // Registering the interceptor
+          useClass: HttpErrorInterceptor,
           multi: true,
         },
       ],
     });
 
-    httpClient = TestBed.inject(HttpClient); // Inject HttpClient
-    httpTestingController = TestBed.inject(HttpTestingController); // Inject HttpTestingController
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    // Verify that there are no outstanding requests
     httpTestingController.verify();
   });
 
