@@ -10,6 +10,8 @@ The Star Wars Film Explorer is an Angular application that fetches and displays 
 - **Communication Layer**: A simple communication layer is established between the main application and lazy-loaded modules using Angular services, allowing for data and event flow.
 - **Dynamic Route Registration**: Additional routes are registered dynamically within the lazy-loaded module when it initializes.
 - **Film Details Navigation**: Users can click on a film to view its details, leveraging the Star Wars API to fetch data.
+- **DataPassing Between Module and ChildComponnent**: Data passing between
+Header Component Back Navigation and FilmDetail component has been established.
 
 ## Technologies Used
 
@@ -17,13 +19,14 @@ The Star Wars Film Explorer is an Angular application that fetches and displays 
 - Angular Material for UI components
 - RxJS for handling asynchronous data streams
 - TypeScript
+- NgRx for Store management
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (version >= 14)
-- Angular CLI (version >= 14)
+- Node.js (version >= v20.18.0)
+- Angular CLI (version >= 18)
 
 ### Installation
 
@@ -34,4 +37,5 @@ The Star Wars Film Explorer is an Angular application that fetches and displays 
    cd starwars-dashboard
    npm i
    ng serve
+   ng test
    ```
