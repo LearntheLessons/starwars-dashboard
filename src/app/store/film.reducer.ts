@@ -28,7 +28,7 @@ export const filmReducer = createReducer(
   })),
   on(loadFilmsFailure, (state, { error }) => ({
     ...state,
-    error,
+    error: typeof error === 'string' ? error : null
   })),
   on(loadFilmDetailsSuccess, (state, { film }) => ({
     ...state,
@@ -38,6 +38,6 @@ export const filmReducer = createReducer(
   on(loadFilmDetailsFailure, (state, { error }) => ({
     ...state,
     selectedFilm: null,
-    error,
+    error: typeof error === 'string' ? error : null
   }))
 );

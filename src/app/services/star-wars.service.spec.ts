@@ -4,13 +4,10 @@ import { of, throwError } from 'rxjs';
 
 import { StarWarsService } from './star-wars.service';
 import { Film } from '../models/film.model';
-import { environment } from '../../environments/environment';
 
 describe('StarWarsService', () => {
   let service: StarWarsService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
-
-  const apiUrl = environment.apiUrl;
 
   beforeEach(() => {
     const spy = jasmine.createSpyObj('HttpClient', ['get']);
@@ -82,7 +79,6 @@ describe('StarWarsService', () => {
     });
 
     it('should handle a 404 error if the film is not found', (done: DoneFn) => {
-      const errorResponse = { status: 404, statusText: 'Not Found' };
       httpClientSpy.get.and.returnValue(throwError(() => new Error('Film not found')));
 
       service.getFilmDetails(999).subscribe({

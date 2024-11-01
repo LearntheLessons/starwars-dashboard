@@ -12,6 +12,7 @@ import { StarWarsService } from '../services/star-wars.service';
 import { FilmState } from '../store/film.reducer';
 import { selectAllFilms } from '../store/film.selectors';
 import { loadFilmsSuccess, loadFilmsFailure } from '../store/film.action';
+import { Film } from '../models/film.model'; // Import your Film model
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +29,7 @@ import { loadFilmsSuccess, loadFilmsFailure } from '../store/film.action';
 })
 export class DashboardComponent implements OnInit {
 
-  films$: Observable<any[]>;
+  films$: Observable<Film[]>; // Specify the type for films$
   displayedColumns: string[] = ['title', 'director', 'release_date', 'action'];
   loading = true;
 
@@ -47,18 +48,18 @@ export class DashboardComponent implements OnInit {
   loadFilms(): void {
     this.loading = true;
     this.starWarService.getFilms().subscribe({
-      next: (data) => {
+      next: (data: Film[]) => { // Specify the type for data
         this.store.dispatch(loadFilmsSuccess({ films: data }));
         this.loading = false;
       },
-      error: (err) => {
+      error: (err: string) => { // Specify the type for error
         this.store.dispatch(loadFilmsFailure({ error: err }));
         this.loading = false;
       },
     });
   }
 
-  viewFilmDetails(url: string) {
+  viewFilmDetails(url: string): void {
     const filmId = url.split('/').slice(-2)[0];
     this.router.navigate(['/film', filmId]);
   }

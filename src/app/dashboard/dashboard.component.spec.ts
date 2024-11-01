@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router, RouterModule} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
@@ -31,10 +31,10 @@ describe('DashboardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        DashboardComponent,
-        FilmDetailComponent,
-        BrowserAnimationsModule,
         MatSnackBarModule,
+        BrowserAnimationsModule,
+        DashboardComponent, // Import the standalone component here
+        FilmDetailComponent, // Ensure this is not standalone or declare it properly
       ],
       providers: [
         provideMockStore({
